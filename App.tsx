@@ -1,4 +1,5 @@
 import React from 'react';
+
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider} from 'styled-components';
 import {
@@ -12,7 +13,8 @@ import {
   Archivo_600SemiBold
  } from '@expo-google-fonts/archivo';
 
-import { Home } from './src/Screens/Home';
+//import { Home } from './src/Screens/Home';
+import { CarDetail } from './src/Screens/CarDetail';
 import theme from './src/styles/theme';
 
 export default function App() {
@@ -30,7 +32,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      <CarDetail />
     </ThemeProvider>
   )
 }
