@@ -3,6 +3,7 @@ import React from 'react';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 import { Acessory } from '../../components/Acessory';
+import { Button } from '../../components/Button';
 
 import speedSvg from '../../assets/speed.svg';
 import accelerationSvg from '../../assets/acceleration.svg';
@@ -25,7 +26,8 @@ import {
  Period,
  Price,
  About,
- Acessories
+ Acessories,
+ Footer
 } from './styles';
 
 export function CarDetail(){
@@ -37,7 +39,7 @@ export function CarDetail(){
 
             <CarImages>
                 <ImageSlider 
-                    imagesUrl={['https://img2.gratispng.com/20181115/lej/kisspng-2-18-bmw-m4-coupe-car-2-19-bmw-m4-coupe-bmw-m4-con-pembroke-pines-bmw-i-xdrive-for-sale-in-pembroke-p-5bedce66755684.7137571115423115264806.jpg']}
+                    imagesUrl={['https://cdn.motor1.com/images/mgl/kNREB/s3/lamborghini-huracan-sto.jpg']}
                 />
             </CarImages>
 
@@ -67,7 +69,15 @@ export function CarDetail(){
                     na praça Real Maestrenza de Sevilla.
                     É um belíssimo carro para quem gosta de acelerar.
                 </About>
+                <About>
+                    Este automóvel é desportivo. Surgiu do lendário touro de lide indultado
+                    na praça Real Maestrenza de Sevilla.
+                    É um belíssimo carro para quem gosta de acelerar.
+                </About>
             </Content>
+            <Footer>
+                <Button title="Confirmar"/>
+            </Footer>
        </Container>
     );
 }
