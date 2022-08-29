@@ -15,7 +15,7 @@ export const Header = styled.View`
 
    position: absolute;
    margin-top: ${getStatusBarHeight() + 18}px;
-   margin-left: 24px
+   margin-left: 24px;
 `;
 
 export const CarImages = styled.View`
@@ -102,7 +102,8 @@ export const CarImages = styled.View`
  export const Footer = styled.View`
    width: 100%;
    background-color: ${({ theme }) => theme.colors.background_secondary};
-
-   //       cima, lados,   baixo
+ 
    padding: 24px 24px ${getBottomSpace() + 24}px;
  `;
+
+
