@@ -1,5 +1,5 @@
 import React from 'react';
-import { ParamListBase, NavigationProp, useNavigation } from '@react-navigation/native';
+import { ParamListBase, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
@@ -30,53 +30,61 @@ import {
  Acessories,
  Footer
 } from './styles';
+import { CarDTO } from 'src/dtos/CarDTO';
 
+interface Params {
+    car: CarDTO;
+}
 
 export function CarDetail(){
     const navigation = useNavigation<NavigationProp<ParamListBase>>();
+    const route = useRoute();
+    const { car } = route.params as Params;
 
     function handleConfirmRental() {
         navigation.navigate('Scheduling')
     }
 
+    function handleBack() {
+        navigation.goBack();
+    }
+
     return (
        <Container>
             <Header>
-                <BackButton color="black" />
+                <BackButton color="black" onPress={handleBack}/>
             </Header>
 
             <CarImages>
                 <ImageSlider 
-                    imagesUrl={['https://cdn.motor1.com/images/mgl/kNREB/s3/lamborghini-huracan-sto.jpg']}
+                    imagesUrl={car.photos}
                 />
             </CarImages>
 
             <Content>
                 <Details>
                     <Description>
-                        <Brand>Lamborghini</Brand>
-                        <Name>Huracan</Name>
+                        <Brand>{car.brand}</Brand>
+                        <Name>{car.name}</Name>
                     </Description>
 
                     <Rent>
-                        <Period>Ao dia</Period>
-                        <Price>R$ 580</Price>
+                        <Period>{car.rent.period}</Period>
+                        <Price>R$ {car.rent.price}</Price>
                     </Rent>
                 </Details>
 
                 <Acessories>
-                    <Acessory name="380Km/h" icon={speedSvg}/>  
-                    <Acessory name="3.2s" icon={accelerationSvg}/> 
-                    <Acessory name="800 HP" icon={forceSvg}/> 
-                    <Acessory name="Gasolina" icon={gasolineSvg}/> 
-                    <Acessory name="Auto" icon={exchangeSvg}/> 
-                    <Acessory name="2 pessoas" icon={peopleSvg}/>   
+                    {
+                        car.accessories.map(accessory => (
+                            <Acessory 
+                                key={accessory.type}
+                                name={accessory.name}
+                                icon={speedSvg}/>
+                        ))
+                    }  
                 </Acessories>
-                <About>
-                    Este automóvel é desportivo. Surgiu do lendário touro de lide indultado
-                    na praça Real Maestrenza de Sevilla.
-                    É um belíssimo carro para quem gosta de acelerar.
-                </About>
+                <About> {car.about} </About>
             </Content>
             <Footer>
                 <Button title="Escolher período do aluguel" onPress={handleConfirmRental}/>
