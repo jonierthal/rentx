@@ -26,7 +26,6 @@ export function generateInterval(start: DayProps, end: DayProps){
     });
 
     return interval;
-    //console.log(teste);
 
 }
 
