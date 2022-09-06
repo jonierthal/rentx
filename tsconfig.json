@@ -3,7 +3,7 @@
       "strict": true,
       "baseUrl": "./",
       "paths": {
-        "react-native-calendars": ["node_modules/@types/react-native-calendars"]
+        "react-native-calendars": ["node_modules/@types/react-native-calendars"],
       },
     },
     "extends": "expo/tsconfig.base"
