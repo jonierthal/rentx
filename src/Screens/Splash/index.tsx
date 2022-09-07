@@ -9,16 +9,20 @@ import Animated, {
     withTiming,
     Easing,
     interpolate,
-    Extrapolate
+    Extrapolate,
+    runOnJS
 } from 'react-native-reanimated';
 
 import {
  Container
 } from './styles';
+import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 
 
 export function Splash(){
     const SplashAnimation = useSharedValue(0);
+
+    const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
     const brandStyle = useAnimatedStyle(() => {
         return {
@@ -54,9 +58,17 @@ export function Splash(){
     useEffect(() => {
         SplashAnimation.value = withTiming(
             50,
-            { duration: 2000 } 
+            { duration: 2000 },
+            () => {
+                'worklet'
+                runOnJS(startApp)();
+            }
         );
     },[]);
+
+    function startApp(){
+        navigation.navigate('Home');
+    }
 
     return (
        <Container>
