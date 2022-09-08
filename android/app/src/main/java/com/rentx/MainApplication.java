@@ -13,6 +13,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.rentx.newarchitecture.MainApplicationReactNativeHost;
+import com.facebook.react.bridge.JSIModulePackage; // <- add
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;
@@ -43,6 +45,11 @@ public class MainApplication extends Application implements ReactApplication {
       return "index";
     }
   });
+
+  @Override
+      protected JSIModulePackage getJSIModulePackage() {
+        return new ReanimatedJSIModulePackage(); // <- add
+      }
 
   private final ReactNativeHost mNewArchitectureNativeHost =
       new ReactNativeHostWrapper(this, new MainApplicationReactNativeHost(this));
