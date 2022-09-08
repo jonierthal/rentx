@@ -3,7 +3,7 @@ import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
 import { ParamListBase, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
-import { Load } from '../../components/Load';
+import { LoadAnimation } from '../../components/LoadAnimation';
 
 import {
  Container,
@@ -47,7 +47,6 @@ export function MyCars(){
         async function fetchCars(){
             try {
                 const response = await api.get('/schedules_byuser?user_id=1');
-                console.log(response.data);
                 setCars(response.data);
             } catch (error) {
                 console.log(error);
@@ -81,7 +80,7 @@ export function MyCars(){
                     </SubTitle>
             </Header>
 
-            { loading ? <Load /> : 
+            { loading ? <LoadAnimation /> : 
                 <Content>
                     <Appointments>
                         <AppointmentsTitle>Agendamentos Feitos</AppointmentsTitle>
