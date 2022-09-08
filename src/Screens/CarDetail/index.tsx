@@ -1,6 +1,7 @@
 import React from 'react';
 import { ParamListBase, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+import { useTheme } from 'styled-components';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import Animated,
@@ -46,11 +47,13 @@ export function CarDetail(){
     const route = useRoute();
     const { car } = route.params as Params;
 
+    const theme = useTheme();
+
     const scrollY = useSharedValue(0);
 
     const headerStyleAnimation = useAnimatedStyle(() => {
         return {
-            height: interpolate(
+            height: interpolate( //animação na altura do cabeçalho
                 scrollY.value,
                 [0,200],
                 [200, 70],
@@ -58,6 +61,17 @@ export function CarDetail(){
             ),
         }
     });
+
+    const sliderCarStyleAnimation = useAnimatedStyle(() => {
+        return {
+            opacity: interpolate ( //animação na opacidade do Slider Car
+                scrollY.value, //no sentido vertical Y
+                [0,150], //iniciando da posição 0 a 150
+                [1,0], // posição 0 aplica opacity: 1 - posição 150 aplica opacity: 0;
+                Extrapolate.CLAMP //usado para não ultrapassar os limites definidos
+            )
+        }
+    })
 
     const scrollHandler = useAnimatedScrollHandler(event => {
         scrollY.value = event.contentOffset.y;
@@ -81,26 +95,33 @@ export function CarDetail(){
             />
 
             <Animated.View
-                style={[headerStyleAnimation]}
+                style={[
+                    headerStyleAnimation,
+                    styles.header,
+                    { backgroundColor: theme.colors.background_secondary }
+                ]}
             >
                 <Header>
                     <BackButton color="black" onPress={handleBack}/>
                 </Header>
 
-                <CarImages>
-                    <ImageSlider 
-                        imagesUrl={car.photos}
-                    />
-                </CarImages>
+                <Animated.View style={sliderCarStyleAnimation}>
+                    <CarImages>
+                        <ImageSlider 
+                            imagesUrl={car.photos}
+                        />
+                    </CarImages>
+                </Animated.View>
             </Animated.View>
 
             <Animated.ScrollView
                 contentContainerStyle={{
                     paddingHorizontal: 24,
-                    paddingTop: getStatusBarHeight(),
+                    paddingTop: getStatusBarHeight() + 160,
                 }}
                 showsVerticalScrollIndicator={false}
                 onScroll={scrollHandler}
+                scrollEventThrottle={16} //quantos quadros queremos renderizar na hora do scroll 16: para ter 60 quadros por segundo, melhorando a fluidez da animação
             >
                 <Details>
                     <Description>
@@ -125,10 +146,6 @@ export function CarDetail(){
                     }  
                 </Acessories>
                 <About> {car.about} </About>
-                <About> {car.about} </About>
-                <About> {car.about} </About>
-                <About> {car.about} </About>
-                <About> {car.about} </About>
             </Animated.ScrollView>
             <Footer>
                 <Button title="Escolher período do aluguel" onPress={handleConfirmRental}/>
@@ -136,3 +153,11 @@ export function CarDetail(){
        </Container>
     );
 }
+
+const styles = StyleSheet.create({
+    header: {
+        position: 'absolute',
+        overflow: 'hidden', //se o carro não couber na caixa, esconde o que exceder do header
+        zIndex: 1, //para o componete sempre ficar na frent
+    }
+})
