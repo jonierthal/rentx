@@ -9,6 +9,12 @@
     "splash": {
       "image": "./assets/splash.png",
       "backgroundColor": "#1B1B1F"
+    },
+    "android": {
+      "package": "com.jonierthal.rentx"
+    },
+    "ios": {
+      "bundleIdentifier": "com.jonierthal.rentx"
     }
   }
 }
