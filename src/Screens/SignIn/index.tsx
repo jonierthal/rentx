@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     StatusBar,
     Keyboard,
@@ -23,6 +23,9 @@ import {
 export function SignIn(){
     const theme = useTheme();
 
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+
     return ( //o behavior="position" muda a posição do restante da tela quando o tecado abre
         <KeyboardAvoidingView behavior="position" enabled> 
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -46,10 +49,14 @@ export function SignIn(){
                             keyboardType="email-address"
                             auto-correct={false}
                             autoCapitalize="none"
+                            onChangeText={setEmail} 
+                            value={email}
                         />
                         <PasswordInput
                             iconName="lock"
                             placeholder="Senha"
+                            onChangeText={setPassword}
+                            value={password}
                         />
                     </Form>
                     <Footer>
