@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ParamListBase, NavigationProp, useNavigation } from '@react-navigation/native';
 import { 
     Alert,
     StatusBar,
@@ -28,6 +29,8 @@ export function SignIn(){
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
+    const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
     async function handleSignIn(){
         try{
             const schema = Yup.object().shape({ //definindo a forma de validação
@@ -50,6 +53,10 @@ export function SignIn(){
                 )
             }
         }
+    }
+
+    function handleNewAccount(){
+        navigation.navigate('SignUpFirstStep');
     }
 
     return ( //o behavior="position" muda a posição do restante da tela quando o tecado abre
@@ -94,8 +101,8 @@ export function SignIn(){
                         />
                         <Button 
                             title="Criar conta gratuita"
-                            onPress={() => {}}
-                            enabled={false}    
+                            onPress={handleNewAccount}
+                            enabled={true}    
                             loading={false}
                             color={theme.colors.background_secondary}
                             light // mesma coisa que passar {true}
