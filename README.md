@@ -35,7 +35,7 @@ https://user-images.githubusercontent.com/80595367/189372418-c750b87a-8335-41a2-
 ## :car: Iniciando o projeto
 ```bash
 # Baixe o repositório com git clone e entre na pasta do projeto.
-$ git clone https://github.com/luiizsilverio/rentx.git
+$ git clone https://github.com/jonierthal/rentx
 
 # Execute yarn para instalar as dependências (ou npm install)
 $ yarn
