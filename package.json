@@ -17,7 +17,7 @@
     "@react-navigation/stack": "^6.2.3",
     "axios": "^0.27.2",
     "date-fns": "^2.29.2",
-    "expo": "~46.0.9",
+    "expo": "^46.0.10",
     "expo-app-loading": "~2.1.0",
     "expo-font": "~10.2.0",
     "expo-splash-screen": "~0.16.2",
