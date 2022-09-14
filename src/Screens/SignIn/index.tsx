@@ -8,6 +8,7 @@ import {
     TouchableWithoutFeedback //server para fechar o teclado apertando em qualquer lugar da tela
 } from 'react-native';
 import * as Yup from 'yup'; // biblioteca para valição de formulário
+import { useAuth } from '../../hooks/auth';
 import { useTheme } from 'styled-components';
 
 import { Button } from '../../components/Button'; 
@@ -31,6 +32,8 @@ export function SignIn(){
 
     const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
+    const { signIn } = useAuth();
+
     async function handleSignIn(){
         try{
             const schema = Yup.object().shape({ //definindo a forma de validação
@@ -43,6 +46,8 @@ export function SignIn(){
     
             await schema.validate({ email, password }) //validando o email e password passado no estado
             Alert.alert('Tudo certo');
+
+            signIn({email, password});
         }catch(error){
             if(error instanceof Yup.ValidationError){
                 Alert.alert('Opa',error.message);
