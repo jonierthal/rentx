@@ -23,9 +23,9 @@ export function AppTabRoutes(){
                 inactiveTintColor: theme.colors.text_detail,
                 showLabel: false,
                 style: {
-                    paddingVertical: Platform.OS === 'ios' ? 20: 0,
+                    paddingVertical: Platform.OS === 'ios' ? 20 : 0,
                     height: 78,
-                    backgroundColor: theme.colors.background_primary
+                    backgroundColor: theme.colors.background_primary,
                 }
             }}
             screenOptions={{
