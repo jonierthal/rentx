@@ -15,8 +15,6 @@ import { Button } from '../../components/Button';
 import { Input } from '../../components/Input'; 
 import { PasswordInput } from '../../components/PasswordInput'; 
 
-import { database } from '../../database';
-
 import {
  Container,
  Header,
@@ -65,16 +63,6 @@ export function SignIn(){
     function handleNewAccount(){
         navigation.navigate('SignUpFirstStep');
     }
-
-    useEffect(() => {
-        async function loadData() {
-            const userCollection = database.get('users');
-            const users = await userCollection.query().fetch();
-            console.log(users)
-        }
-
-        loadData();
-    }, [])
 
     return ( //o behavior="position" muda a posição do restante da tela quando o tecado abre
         <KeyboardAvoidingView behavior="position" enabled> 

@@ -18,17 +18,15 @@ export function AppTabRoutes(){
 
     return(
         <Navigator 
-            tabBarOptions={{
-                activeTintColor: theme.colors.main,
-                inactiveTintColor: theme.colors.text_detail,
-                showLabel: false,
-                style: {
+            screenOptions={{
+                tabBarActiveTintColor: theme.colors.main,
+                tabBarInactiveTintColor: theme.colors.text_detail,
+                tabBarShowLabel: false,
+                tabBarStyle: {
                     paddingVertical: Platform.OS === 'ios' ? 20 : 0,
                     height: 78,
                     backgroundColor: theme.colors.background_primary,
-                }
-            }}
-            screenOptions={{
+                },
                 headerShown: false,
             }}
         >
