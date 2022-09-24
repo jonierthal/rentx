@@ -45,7 +45,6 @@ export function SignIn(){
             });
     
             await schema.validate({ email, password }) //validando o email e password passado no estado
-            Alert.alert('Tudo certo');
 
             signIn({email, password});
         }catch(error){

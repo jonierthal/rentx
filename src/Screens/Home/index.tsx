@@ -41,7 +41,7 @@ export function Home(){
             console.log(error);
         } finally {
             if(isMounted){
-                setLoading(false);
+                setLoading();
             }
         }
       }
