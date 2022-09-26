@@ -13,6 +13,7 @@ import {
   Archivo_600SemiBold
  } from '@expo-google-fonts/archivo';
 
+import { GestureHandlerRootView  } from 'react-native-gesture-handler';
 import { Routes } from './src/routes';
 import theme from './src/styles/theme';
 
@@ -30,10 +31,12 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppProvider>
-        <Routes />
-      </AppProvider>
-    </ThemeProvider>
+
+      <ThemeProvider theme={theme}>
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      </ThemeProvider>
+
   )
 }

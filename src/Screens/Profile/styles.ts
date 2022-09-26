@@ -52,7 +52,7 @@ export const Photo = styled.Image`
     height: 180px;
     border-radius: 90px;`;
 
-export const PhotoButton = styled(RectButton)`
+export const PhotoButton = styled.TouchableOpacity`
     width: 40px;
     height: 40px;
 
