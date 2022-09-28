@@ -2,16 +2,19 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
 import * as ImagePicker from 'expo-image-picker';
+import * as Yup from 'yup';
 
 import { BackButton } from '../../components/BackButton';
 import { useTheme } from 'styled-components';
 import { Feather } from '@expo/vector-icons';
-import { Input } from '../../components/Input'
-import { PasswordInput } from '../../components/PasswordInput'
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { PasswordInput } from '../../components/PasswordInput';
 import { 
     Keyboard,
     KeyboardAvoidingView, //usado para movimentar os elementos em tela quando o teclado sobe
-    TouchableWithoutFeedback //server para fechar o teclado apertando em qualquer lugar da tela
+    TouchableWithoutFeedback, //server para fechar o teclado apertando em qualquer lugar da tela
+    Alert
 } from 'react-native';
 import { useBottomTabBarHeight} from '@react-navigation/bottom-tabs'; //hook para capturar altura da barra do keyboard
 
@@ -32,7 +35,7 @@ import {
 } from './styles';
 
 export function Profile(){
-    const { user, signOut } = useAuth();
+    const { user, signOut, updatedUser } = useAuth();
 
     const [option, setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit');
     const [avatar, setAvatar] = useState(user.avatar);
@@ -65,6 +68,41 @@ export function Profile(){
 
         if(result.uri) {
             setAvatar(result.uri)
+        }
+    }
+
+    async function handleProfileUpdate(){
+        try{
+            const schema = Yup.object().shape({
+                driverLicense: Yup.string()
+                .required('CNH é obrigatória'),
+                name: Yup.string()
+                .required('Nome é obrigatório')
+            });
+
+            const data = { name, driverLicense };
+            await schema.validate(data);
+
+            await updatedUser({
+                id: user.id,
+                user_id: user.user_id,
+                email: user.email,
+                name,
+                driver_license: driverLicense,
+                avatar,
+                token: user.token
+            });
+
+            Alert.alert('Perfil atualizado!');
+
+
+        } catch(error) {
+            if(error instanceof Yup.ValidationError){
+                Alert.alert('Opa', error.message);
+
+            } else {
+                Alert.alert('Não foi possível atualizar o perfil');
+            }
         }
     }
 
@@ -158,6 +196,11 @@ export function Profile(){
                             />
                         </Section>
                     }
+
+                    <Button
+                        title="Salvar alterações"
+                        onPress={handleProfileUpdate}
+                    />
                     </Content>
                 </Container>
             </TouchableWithoutFeedback>
